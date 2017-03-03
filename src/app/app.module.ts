@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { CardsComponent } from './cards/cards.component';
 import { LearningComponent } from './learning/learning.component';
 
+import { CardService } from './card.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +23,9 @@ import { LearningComponent } from './learning/learning.component';
     HttpModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    CardService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
