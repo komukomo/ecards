@@ -1,18 +1,13 @@
 <div class="container">
 
-  <div class="panel panel-default">
+  <div *ngIf="cards && cards.length" class="panel panel-default">
     <div class="panel-heading">
       <div style="font-size:132%" class="glyphicon glyphicon-play-circle pull-right" aria-hidden="true"></div>
-      <h4>
-        Text text
-      </h4>
+      {{cards[index].id}}
+      <h4>{{cards[index].front}}</h4>
     </div>
     <div class="panel-body">
-      <p>
-      Body body body bodybody
-      Body body body bodybody
-      Body body body bodybody
-      </p>
+      <p>{{cards[index].back}}</p>
     </div>
   </div>
 
@@ -33,7 +28,19 @@
 
   <hr>
 
-  <button type="button" class="btn btn-default pull-left">Prev</button>
-  <button type="button" class="btn btn-default pull-right">Next</button>
+
+  <div class="card-nav">
+  <button
+    *ngFor="let c of cards; let i = index;"
+    type="button"
+    class="btn btn-default"
+    [class.active]="i == index"
+    (click)="changeIndex(i);"
+    ></button>
+  </div>
+
+  <button (click)="prev();" type="button" class="btn btn-default pull-left">Prev</button>
+
+  <button (click)="next();" type="button" class="btn btn-default pull-right">Next</button>
 
 </div>
