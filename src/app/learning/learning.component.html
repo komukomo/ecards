@@ -3,7 +3,8 @@
   <div *ngIf="cards && cards.length" class="panel panel-default">
     <div class="panel-heading">
       <div style="font-size:132%" class="glyphicon glyphicon-play-circle pull-right" aria-hidden="true"></div>
-      {{cards[index].id}}
+      ID:{{cards[index].id}}
+      Level:{{cards[index].level}}
       <h4>{{cards[index].front}}</h4>
     </div>
     <div class="panel-body">
