@@ -9,13 +9,16 @@ import { CardService } from '../card.service';
 })
 export class LearningComponent implements OnInit {
   cards: Card[];
+  rates: number[];
   index = 0;
 
   constructor(private cardService: CardService) { }
 
   getCards() {
-    this.cardService.getCards().then(
-      cards => this.cards = cards
+    this.cardService.getCards().then((cards) => {
+        this.cards = cards;
+        this.rates = Array(this.cards.length).fill(NaN);
+      }
     );
   }
 
@@ -28,11 +31,15 @@ export class LearningComponent implements OnInit {
   }
 
   next() {
-    changeIndex(this.index + 1);
+    this.changeIndex(this.index + 1);
   }
 
   prev() {
-    changeIndex(this.index - 1);
+    this.changeIndex(this.index - 1);
+  }
+
+  rate(val: number) {
+    this.rates[this.index] = val;
   }
 
 }

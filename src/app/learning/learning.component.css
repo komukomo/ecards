@@ -3,3 +3,11 @@
   justify-content: center;
   margin: 10px;
 }
+
+.card-nav-item {
+  margin:2px;
+}
+
+.card-nav-item.active{
+  border-bottom: solid 2px #ccc;
+}
