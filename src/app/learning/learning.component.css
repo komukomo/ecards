@@ -24,3 +24,8 @@
 .card-nav-item.active{
   border-bottom: solid 2px #ccc;
 }
+
+.finish-btn {
+  display: flex;
+  justify-content: center;
+}

@@ -22,6 +22,10 @@ export class LearningComponent implements OnInit {
     this._window = windowRef.nativeWindow;
   }
 
+  get finished(): boolean {
+    return this.rates && !this.rates.some(isNaN);
+  }
+
   getCards() {
     this.cardService.getCards().then((cards) => {
         this.cards = cards;
