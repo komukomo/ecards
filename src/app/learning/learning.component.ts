@@ -65,4 +65,12 @@ export class LearningComponent implements OnInit {
     this.visible[i] = true;
   }
 
+  finish() {
+    this.cards.forEach((card, i)=>{
+      const level = card.level + this.rates[i]
+      card.level = Math.max(0, level);
+    })
+    this.cardService.update(this.cards);
+  }
+
 }

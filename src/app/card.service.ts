@@ -12,4 +12,8 @@ export class CardService {
     return Promise.resolve(CARDS);
   }
 
+  update(cards: Card[]) {
+    console.log("update!");
+  }
+
 }
