@@ -10,6 +10,7 @@ import { CardsComponent } from './cards/cards.component';
 import { LearningComponent } from './learning/learning.component';
 
 import { CardService } from './card.service';
+import { WindowService } from './window.service';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CardService } from './card.service';
   ],
   providers: [
     CardService,
+    WindowService,
   ],
   bootstrap: [AppComponent]
 })

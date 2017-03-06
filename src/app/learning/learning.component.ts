@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Card } from '../card';
 import { CardService } from '../card.service';
+import { WindowService } from '../window.service';
 
 @Component({
   selector: 'app-learning',
@@ -11,8 +12,14 @@ export class LearningComponent implements OnInit {
   cards: Card[];
   rates: number[];
   index = 0;
+  _window;
 
-  constructor(private cardService: CardService) { }
+  constructor(
+    private windowRef: WindowService,
+    private cardService: CardService
+  ) {
+    this._window = windowRef.nativeWindow;
+  }
 
   getCards() {
     this.cardService.getCards().then((cards) => {
@@ -40,6 +47,12 @@ export class LearningComponent implements OnInit {
 
   rate(val: number) {
     this.rates[this.index] = val;
+  }
+
+  play(text: string) {
+    const msg = new this._window.SpeechSynthesisUtterance(text);
+    msg.lang = 'en-US';
+    this._window.speechSynthesis.speak(msg);
   }
 
 }
