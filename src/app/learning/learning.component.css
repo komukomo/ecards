@@ -1,3 +1,16 @@
+.card-back {
+  display: none;
+}
+.card-back.active {
+  display: block;
+}
+.card-mask {
+  display: none;
+}
+.card-mask.active {
+  display: block;
+}
+
 .card-nav {
   display: flex;
   justify-content: center;

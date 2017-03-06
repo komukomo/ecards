@@ -7,8 +7,9 @@
       Level:{{cards[index].level}}
       <h4>{{cards[index].front}}</h4>
     </div>
-    <div class="panel-body">
-      <p>{{cards[index].back}}</p>
+    <div class="panel-body" (click)="reveal(index);">
+      <p class="card-mask" [class.active]="!visible[index]">[CLICK]</p>
+      <p class="card-back" [class.active]="visible[index]">{{cards[index].back}}</p>
     </div>
   </div>
 

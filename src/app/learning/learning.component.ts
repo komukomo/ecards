@@ -11,6 +11,7 @@ import { WindowService } from '../window.service';
 export class LearningComponent implements OnInit {
   cards: Card[];
   rates: number[];
+  visible: boolean[];
   index = 0;
   _window;
 
@@ -25,6 +26,7 @@ export class LearningComponent implements OnInit {
     this.cardService.getCards().then((cards) => {
         this.cards = cards;
         this.rates = Array(this.cards.length).fill(NaN);
+        this.visible = Array(this.cards.length).fill(false);
       }
     );
   }
@@ -53,6 +55,10 @@ export class LearningComponent implements OnInit {
     const msg = new this._window.SpeechSynthesisUtterance(text);
     msg.lang = 'en-US';
     this._window.speechSynthesis.speak(msg);
+  }
+
+  reveal(i: number) {
+    this.visible[i] = true;
   }
 
 }
