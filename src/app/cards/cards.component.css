@@ -1,0 +1,9 @@
+.editable p,
+.editable.edit input {
+  display: block;
+}
+.editable.edit p,
+.editable input {
+  display: none;
+}
+

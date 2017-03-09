@@ -1,11 +1,17 @@
 <div class="container">
-  <div *ngFor="let card of cards" class="panel panel-default">
+  <div *ngFor="let card of cards; let i = index" class="panel panel-default">
     <div class="panel-heading">
       <div style="font-size:132%" class="glyphicon glyphicon-play-circle pull-right" aria-hidden="true"></div>
-      <p>{{card.front}}</p>
+      <div class="editable" [ngClass]="{edit: editStyle(i)}">
+        <p (click)="editCard(i);">{{card.front}}</p>
+        <input [(ngModel)]="card.front" (blur)="finEdit(i);">
+      </div>
     </div>
     <div class="panel-body">
-      <p>{{card.back}}</p>
+      <div class="editable" [ngClass]="{edit: editStyle(i, false)}">
+        <p (click)="editCard(i, false);">{{card.back}}</p>
+        <input [(ngModel)]="card.back" (blur)="finEdit(i, false);">
+      </div>
     </div>
   </div>
 </div>
