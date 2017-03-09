@@ -11,12 +11,14 @@ import { LearningComponent } from './learning/learning.component';
 
 import { CardService } from './card.service';
 import { WindowService } from './window.service';
+import { PlayComponent } from './play/play.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CardsComponent,
-    LearningComponent
+    LearningComponent,
+    PlayComponent
   ],
   imports: [
     BrowserModule,

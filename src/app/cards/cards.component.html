@@ -1,7 +1,7 @@
 <div class="container">
   <div *ngFor="let card of cards; let i = index" class="panel panel-default">
     <div class="panel-heading">
-      <div style="font-size:132%" class="glyphicon glyphicon-play-circle pull-right" aria-hidden="true"></div>
+      <app-play [msg]="card.front"></app-play>
       <div class="editable" [ngClass]="{edit: editStyle(i)}">
         <p (click)="editCard(i);">{{card.front}}</p>
         <input [(ngModel)]="card.front" (blur)="finEdit(i);">

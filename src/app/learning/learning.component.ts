@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Card } from '../card';
 import { CardService } from '../card.service';
-import { WindowService } from '../window.service';
 
 @Component({
   selector: 'app-learning',
@@ -13,14 +12,8 @@ export class LearningComponent implements OnInit {
   rates: number[];
   visible: boolean[];
   index = 0;
-  _window;
 
-  constructor(
-    private windowRef: WindowService,
-    private cardService: CardService
-  ) {
-    this._window = windowRef.nativeWindow;
-  }
+  constructor(private cardService: CardService) {}
 
   get finished(): boolean {
     return this.rates && !this.rates.some(isNaN);
@@ -53,12 +46,6 @@ export class LearningComponent implements OnInit {
 
   rate(val: number) {
     this.rates[this.index] = val;
-  }
-
-  play(text: string) {
-    const msg = new this._window.SpeechSynthesisUtterance(text);
-    msg.lang = 'en-US';
-    this._window.speechSynthesis.speak(msg);
   }
 
   reveal(i: number) {
