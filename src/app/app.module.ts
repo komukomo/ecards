@@ -16,6 +16,8 @@ import { CardService } from './card.service';
 import { WindowService } from './window.service';
 import { PlayComponent } from './play/play.component';
 
+import { environment } from 'environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +29,8 @@ import { PlayComponent } from './play/play.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
+    environment.production ? [] :
+      InMemoryWebApiModule.forRoot(InMemoryDataService),
     AppRoutingModule,
   ],
   providers: [
