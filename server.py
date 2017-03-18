@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 import sys
 from flask import Flask, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, static_folder='dist')
-app.config['SQLALCHEMY_DATABASE_URL'] = 'sqlite:////tmp/test.db'
+DB_PATH = '/tmp/test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + DB_PATH
 db = SQLAlchemy(app)
 PORT = 8080
 if len(sys.argv) == 2:
@@ -67,5 +69,6 @@ def init_db():
 
 
 if __name__ == '__main__':
-    init_db()
+    if not os.path.exists(DB_PATH):
+        init_db()
     app.run(port=PORT)
