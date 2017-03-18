@@ -1,19 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Card } from './card';
-import { CARDS } from './mock-cards';
+import { Headers, Http } from '@angular/http';
 
+import 'rxjs/add/operator/toPromise';
+import { Card } from './card';
 
 @Injectable()
 export class CardService {
+  private cardsUrl = 'api/cards';
 
-  constructor() { }
+  constructor(private http: Http) { }
 
   getCards(): Promise<Card[]> {
-    return Promise.resolve(CARDS);
+    return this.http.get(this.cardsUrl)
+      .toPromise()
+      .then(res => res.json().data as Card[])
+      .catch(this.handleError);
   }
 
-  update(cards: Card[]): Promise<Card[]> {
-    return Promise.resolve(CARDS);
+  update(cards: Card[]): Promise<any> {
+    return Promise.resolve();
+  }
+
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error);
+    return Promise.reject(error.messsage || error);
   }
 
 }
