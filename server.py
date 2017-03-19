@@ -5,6 +5,7 @@ import os
 import sys
 from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 app = Flask(__name__, static_folder='dist')
 DB_PATH = '/tmp/test.db'
@@ -51,6 +52,8 @@ class Card(db.Model):
     def __init__(self, front, back):
         self.front = front
         self.back = back
+        self.learntime = datetime.datetime.min
+        self.level = 0
 
     def to_json(self):
         return {
