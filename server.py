@@ -25,17 +25,16 @@ config = {
 def get_cards():
     learn = request.args.get('learn', False)
     if learn:
-        now = datetime.datetime.now()
-        cards = Card.query.filter(Card.learntime < now).limit(config['nlearn'])
+        cards = get_cards_for_learning(config['nlearn'])
     else:
-        cards = Card.query.all()
+        cards = get_cards_all()
     jcards = list(map(lambda x: x.to_json(), cards))
     return jsonify({'data': jcards})
 
 
 @app.route('/api/cards/<card_id>', methods=['GET'])
 def get_card(card_id):
-    card = Card.query.filter_by(id=card_id).first()
+    card = get_card_by_id(card_id)
     return jsonify({'data': card.to_json()})
 
 
@@ -51,16 +50,7 @@ def add_cards():
 @app.route('/api/cards/<card_id>', methods=['PUT'])
 def update_card(card_id):
     data = request.json
-    card = Card.query.filter_by(id=card_id).first()
-    if 'level' in data:
-        card.level = max(0, card.level + data['level'])
-        now = datetime.datetime.now()
-        addtime = datetime.timedelta(hours=10)
-        card.learntime = now + addtime
-    else:
-        card.front = data['front']
-        card.back = data['back']
-
+    card = update_card_by_id(card_id, data)
     db.session.commit()
     return jsonify(card.to_json())
 
@@ -96,6 +86,33 @@ class Card(db.Model):
             'level': self.level,
             'learntime': self.learntime,
         }
+
+
+def get_card_by_id(cid):
+    return Card.query.filter_by(id=cid).first()
+
+
+def get_cards_all():
+    return Card.query.all()
+
+
+def get_cards_for_learning(num):
+    now = datetime.datetime.now()
+    return Card.query.filter(Card.learntime < now).limit(num)
+
+
+def update_card_by_id(cid, data):
+    card = get_card_by_id(cid)
+    if 'front' in data and data['front'] != card.front:
+        card.front = data['front']
+    if 'back' in data and data['back'] != card.back:
+        card.back = data['back']
+    if 'level' in data and data['level'] != card.level:
+        card.level = max(0, data['level'])
+        now = datetime.datetime.now()
+        addtime = datetime.timedelta(hours=10)
+        card.learntime = now + addtime
+    return card
 
 
 def init_db():
