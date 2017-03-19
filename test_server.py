@@ -58,7 +58,7 @@ class FlaskrTestCase(unittest.TestCase):
         pretime = res['data']['learntime']
         update_card(self.app, res['data']['id'], {'level': level + 1})
         res = get_card(self.app, cid)
-        assert(res['data']['learntime'] > pretime)
+        assert(res['data']['learntime'] == pretime)
         assert(res['data']['level'] > level)
 
     def test_learn(self):

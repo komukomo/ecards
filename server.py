@@ -62,7 +62,7 @@ def update_levels():
     for d in data:
         card_id = d[0]
         data = {'level': d[1]}
-        update_card_by_id(card_id, data)
+        update_card_by_id(card_id, data, update_date=True)
     db.session.commit()
     return jsonify({'status': 'ok'})
 
@@ -113,18 +113,24 @@ def get_cards_for_learning(num):
     return Card.query.filter(Card.learntime < now).limit(num)
 
 
-def update_card_by_id(cid, data):
+def update_card_by_id(cid, data, update_date=False):
     card = get_card_by_id(cid)
     if 'front' in data and data['front'] != card.front:
         card.front = data['front']
     if 'back' in data and data['back'] != card.back:
         card.back = data['back']
-    if 'level' in data and data['level'] != card.level:
-        card.level = max(0, data['level'])
-        now = datetime.datetime.now()
-        addtime = datetime.timedelta(hours=10)
-        card.learntime = now + addtime
+    if 'level' in data:
+        if data['level'] != card.level:
+            card.level = max(0, data['level'])
+        if update_date:
+            update_learndate(card)
+
     return card
+
+def update_learndate(card):
+    now = datetime.datetime.now()
+    addtime = datetime.timedelta(hours=10)
+    card.learntime = now + addtime
 
 
 def init_db():
