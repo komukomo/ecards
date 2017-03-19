@@ -23,7 +23,7 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_get_cards(self):
         res = get_cards(self.app)
-        print('data' in res)
+        assert('data' in res)
 
 
 API_URL = '/api/cards'
