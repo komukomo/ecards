@@ -33,6 +33,12 @@ def get_cards():
     return jsonify({'data': jcards})
 
 
+@app.route('/api/cards/<card_id>', methods=['GET'])
+def get_card(card_id):
+    card = Card.query.filter_by(id=card_id).first()
+    return jsonify({'data': card.to_json()})
+
+
 @app.route('/api/cards', methods=['POST'])
 def add_cards():
     data = request.json

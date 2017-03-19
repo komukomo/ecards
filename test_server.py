@@ -20,6 +20,10 @@ class FlaskrTestCase(unittest.TestCase):
         os.close(self.db_fd)
         os.unlink(self.dbpath)
 
+    def test_get_card(self):
+        res = get_card(self.app, 1)
+        assert('data' in res)
+
     def test_get_cards(self):
         res = get_cards(self.app)
         assert('data' in res)
@@ -44,6 +48,12 @@ API_URL = '/api/cards'
 def get_cards(client):
     rv = client.get(API_URL)
     return json.loads(rv.data.decode('utf-8'))
+
+
+def get_card(client, cid):
+    rv = client.get(API_URL + '/' + str(cid))
+    return json.loads(rv.data.decode('utf-8'))
+
 
 def get_cards_learn(client):
     param = 'learn=1'
