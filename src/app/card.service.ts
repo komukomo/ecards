@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, URLSearchParams } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import { Card } from './card';
@@ -12,6 +12,15 @@ export class CardService {
 
   getCards(): Promise<Card[]> {
     return this.http.get(this.cardsUrl)
+      .toPromise()
+      .then(res => res.json().data as Card[])
+      .catch(this.handleError);
+  }
+
+  getCardsToLearn(): Promise<Card[]> {
+    const params = new URLSearchParams();
+    params.set('learn', '1')
+    return this.http.get(this.cardsUrl, {search: params})
       .toPromise()
       .then(res => res.json().data as Card[])
       .catch(this.handleError);

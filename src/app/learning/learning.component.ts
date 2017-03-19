@@ -20,7 +20,7 @@ export class LearningComponent implements OnInit {
   }
 
   getCards() {
-    this.cardService.getCards().then((cards) => {
+    this.cardService.getCardsToLearn().then((cards) => {
         this.cards = cards;
         this.rates = Array(this.cards.length).fill(NaN);
         this.visible = Array(this.cards.length).fill(false);
