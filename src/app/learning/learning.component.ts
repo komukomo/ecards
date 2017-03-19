@@ -53,11 +53,11 @@ export class LearningComponent implements OnInit {
   }
 
   finish() {
-    this.cards.forEach((card, i) => {
+    const updates = this.cards.map((card, i) => {
       const level = card.level + this.rates[i];
-      card.level = Math.max(0, level);
+      return [card.id, Math.max(0, level)];
     });
-    this.cardService.update(this.cards).then(() => {
+    this.cardService.learn(updates).then(() => {
       this.getCards();
     });
   }
