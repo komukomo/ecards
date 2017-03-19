@@ -1,4 +1,23 @@
 <div class="container">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <form class="form-horizontal" (ngSubmit)="addCard($event, cfront.value, cback.value)">
+        <div class="form-group">
+          <label class="col-sm-1">front</label>
+          <div class="col-sm-11">
+            <input class="form-control" #cfront >
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1">back</label>
+          <div class="col-sm-11">
+            <input class="form-control" #cback >
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Add</button>
+      </form>
+    </div>
+  </div>
   <div *ngFor="let card of cards; let i = index" class="panel panel-default">
     <div class="panel-heading">
       <app-play [msg]="card.front"></app-play>

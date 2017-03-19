@@ -17,6 +17,13 @@ export class CardService {
       .catch(this.handleError);
   }
 
+  addCard(front: string, back: string): Promise<Card> {
+    return this.http.post(this.cardsUrl, {front, back})
+      .toPromise()
+      .then(res => res.json().data as Card)
+      .catch(this.handleError);
+  }
+
   update(cards: Card[]): Promise<any> {
     return Promise.resolve();
   }

@@ -43,4 +43,11 @@ export class CardsComponent implements OnInit {
       this.editingB[i] = false;
   }
 
+  addCard(event: Event, fr:string, bk:string) {
+    event.preventDefault();
+    this.cardService.addCard(fr, bk).then(()=>{
+      this.getCards();
+    });
+  }
+
 }
