@@ -41,6 +41,26 @@ class FlaskrTestCase(unittest.TestCase):
         assert('f1' in res['front'])
         assert('b1' in res['back'])
 
+    def test_update_card(self):
+        cid = 1
+        res = get_card(self.app, cid)
+        front = res['data']['front'] + '-updated'
+        back = res['data']['back'] + '-updated'
+        update_card(self.app, cid, {'front': front, 'back': back})
+        res = get_card(self.app, cid)
+        assert(res['data']['front'].find('updated') > 0)
+        assert(res['data']['back'].find('updated') > 0)
+
+    def test_update_card_level(self):
+        cid = 1
+        res = get_card(self.app, cid)
+        level = res['data']['level']
+        pretime = res['data']['learntime']
+        update_card(self.app, res['data']['id'], {'level': level + 1})
+        res = get_card(self.app, cid)
+        assert(res['data']['learntime'] > pretime)
+        assert(res['data']['level'] > level)
+
 
 API_URL = '/api/cards'
 
@@ -65,6 +85,13 @@ def add_card(client, front, back):
     rv = client.post(API_URL,
                      data=json.dumps({'front': front, 'back': back}),
                      content_type='application/json')
+    return json.loads(rv.data.decode('utf-8'))
+
+
+def update_card(client, cid, dic):
+    rv = client.put(API_URL + '/' + str(cid),
+                    data=json.dumps(dic),
+                    content_type='application/json')
     return json.loads(rv.data.decode('utf-8'))
 
 

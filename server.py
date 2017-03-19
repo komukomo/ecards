@@ -48,6 +48,23 @@ def add_cards():
     return jsonify(card.to_json())
 
 
+@app.route('/api/cards/<card_id>', methods=['PUT'])
+def update_card(card_id):
+    data = request.json
+    card = Card.query.filter_by(id=card_id).first()
+    if 'level' in data:
+        card.level = max(0, card.level + data['level'])
+        now = datetime.datetime.now()
+        addtime = datetime.timedelta(hours=10)
+        card.learntime = now + addtime
+    else:
+        card.front = data['front']
+        card.back = data['back']
+
+    db.session.commit()
+    return jsonify(card.to_json())
+
+
 @app.route('/', methods=['GET'])
 def index():
     return app.send_static_file('index.html')
