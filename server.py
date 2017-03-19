@@ -55,6 +55,18 @@ def update_card(card_id):
     return jsonify(card.to_json())
 
 
+@app.route('/api/cards/learn', methods=['PUT'])
+def update_levels():
+    data = request.json
+    print(data)
+    for d in data:
+        card_id = d[0]
+        data = {'level': d[1]}
+        update_card_by_id(card_id, data)
+    db.session.commit()
+    return jsonify({'status': 'ok'})
+
+
 @app.route('/', methods=['GET'])
 def index():
     return app.send_static_file('index.html')

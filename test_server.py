@@ -61,6 +61,14 @@ class FlaskrTestCase(unittest.TestCase):
         assert(res['data']['learntime'] > pretime)
         assert(res['data']['level'] > level)
 
+    def test_learn(self):
+        precard = get_card(self.app, 1)
+        update_list = [[1, 2], [2, 3]]
+        learn(self.app, update_list)
+        card = get_card(self.app, 1)
+        assert(card['data']['level'] == 2)
+        assert(card['data']['learntime'] > precard['data']['learntime'])
+
 
 API_URL = '/api/cards'
 
@@ -91,6 +99,13 @@ def add_card(client, front, back):
 def update_card(client, cid, dic):
     rv = client.put(API_URL + '/' + str(cid),
                     data=json.dumps(dic),
+                    content_type='application/json')
+    return json.loads(rv.data.decode('utf-8'))
+
+
+def learn(client, update_list):
+    rv = client.put(API_URL + '/learn',
+                    data=json.dumps(update_list),
                     content_type='application/json')
     return json.loads(rv.data.decode('utf-8'))
 
