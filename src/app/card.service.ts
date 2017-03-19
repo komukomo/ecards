@@ -4,26 +4,27 @@ import { Headers, Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Card } from './card';
 
+import { environment } from 'environments/environment';
+
 @Injectable()
 export class CardService {
   private cardsUrl = 'api/cards';
 
   constructor(private http: Http) { }
 
-  getCards(): Promise<Card[]> {
-    return this.http.get(this.cardsUrl)
+  getCards(toLearn: boolean = false): Promise<Card[]> {
+    const params = new URLSearchParams();
+    if (toLearn && environment.production) {
+      params.set('learn', '1');
+    }
+    return this.http.get(this.cardsUrl, {search: params})
       .toPromise()
       .then(res => res.json().data as Card[])
       .catch(this.handleError);
   }
 
   getCardsToLearn(): Promise<Card[]> {
-    const params = new URLSearchParams();
-    params.set('learn', '1');
-    return this.http.get(this.cardsUrl, {search: params})
-      .toPromise()
-      .then(res => res.json().data as Card[])
-      .catch(this.handleError);
+    return this.getCards(true);
   }
 
   addCard(front: string, back: string): Promise<Card> {
