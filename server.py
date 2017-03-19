@@ -15,10 +15,20 @@ PORT = 8080
 if len(sys.argv) == 2:
     PORT = sys.argv[1]
 
+NLEARN_DEFAULT = 10
+config = {
+    'nlearn': NLEARN_DEFAULT
+}
+
 
 @app.route('/api/cards', methods=['GET'])
 def get_cards():
-    cards = Card.query.all()
+    learn = request.args.get('learn', False)
+    if learn:
+        now = datetime.datetime.now()
+        cards = Card.query.filter(Card.learntime < now).limit(config['nlearn'])
+    else:
+        cards = Card.query.all()
     jcards = list(map(lambda x: x.to_json(), cards))
     return jsonify({'data': jcards})
 
@@ -72,6 +82,13 @@ def init_db():
         ['2front message', '2answer'],
         ['3front message', 'answer'],
         ['4front message', 'answer'],
+        ['5front message', 'answer'],
+        ['6front message', 'answer'],
+        ['7front message', 'answer'],
+        ['8front message', 'answer'],
+        ['9front message', 'answer'],
+        ['10front message', 'answer'],
+        ['11front message', 'answer'],
     ]
     for card in sample_cards:
         c = Card(*card)

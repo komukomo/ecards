@@ -23,6 +23,12 @@ class FlaskrTestCase(unittest.TestCase):
     def test_get_cards(self):
         res = get_cards(self.app)
         assert('data' in res)
+        assert(len(res['data']) > server.config['nlearn'])
+
+    def test_get_cards_learn(self):
+        res = get_cards_learn(self.app)
+        assert('data' in res)
+        assert(len(res['data']) == server.config['nlearn'])
 
     def test_add_card(self):
         res = add_card(self.app, 'f1', 'b1')
@@ -37,6 +43,11 @@ API_URL = '/api/cards'
 
 def get_cards(client):
     rv = client.get(API_URL)
+    return json.loads(rv.data.decode('utf-8'))
+
+def get_cards_learn(client):
+    param = 'learn=1'
+    rv = client.get('?'.join((API_URL, param)))
     return json.loads(rv.data.decode('utf-8'))
 
 
