@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 import os
 import unittest
 import server
@@ -25,12 +24,26 @@ class FlaskrTestCase(unittest.TestCase):
         res = get_cards(self.app)
         assert('data' in res)
 
+    def test_add_card(self):
+        res = add_card(self.app, 'f1', 'b1')
+        assert('front' in res)
+        assert('back' in res)
+        assert('f1' in res['front'])
+        assert('b1' in res['back'])
+
 
 API_URL = '/api/cards'
 
 
 def get_cards(client):
     rv = client.get(API_URL)
+    return json.loads(rv.data.decode('utf-8'))
+
+
+def add_card(client, front, back):
+    rv = client.post(API_URL,
+                     data=json.dumps({'front': front, 'back': back}),
+                     content_type='application/json')
     return json.loads(rv.data.decode('utf-8'))
 
 

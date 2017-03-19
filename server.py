@@ -3,7 +3,7 @@
 
 import os
 import sys
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, static_folder='dist')
@@ -20,6 +20,15 @@ def get_cards():
     cards = Card.query.all()
     jcards = list(map(lambda x: x.to_json(), cards))
     return jsonify({'data': jcards})
+
+
+@app.route('/api/cards', methods=['POST'])
+def add_cards():
+    data = request.json
+    card = Card(**data)
+    db.session.add(card)
+    db.session.commit()
+    return jsonify(card.to_json())
 
 
 @app.route('/', methods=['GET'])
