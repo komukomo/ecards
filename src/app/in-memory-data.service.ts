@@ -7,7 +7,7 @@ export class InMemoryDataService implements InMemoryDbService {
   constructor() { }
 
   createDb() {
-    let cards = CARDS;
+    const cards = CARDS;
     return {cards};
   }
 }

@@ -28,24 +28,24 @@ export class CardsComponent implements OnInit {
   }
 
   editStyle(i: number, isFront: boolean = true): boolean {
-    return isFront ? this.editingF[i]: this.editingB[i];
+    return isFront ? this.editingF[i] : this.editingB[i];
   }
 
   editCard(i: number, isFront: boolean = true) {
     isFront ?
-      this.editingF[i] = true:
+      this.editingF[i] = true :
       this.editingB[i] = true;
   }
 
   finEdit(i: number, isFront: boolean = true) {
     isFront ?
-      this.editingF[i] = false:
+      this.editingF[i] = false :
       this.editingB[i] = false;
   }
 
-  addCard(event: Event, fr:string, bk:string) {
+  addCard(event: Event, fr: string, bk: string) {
     event.preventDefault();
-    this.cardService.addCard(fr, bk).then(()=>{
+    this.cardService.addCard(fr, bk).then(() => {
       this.getCards();
     });
   }

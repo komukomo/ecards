@@ -19,7 +19,7 @@ export class CardService {
 
   getCardsToLearn(): Promise<Card[]> {
     const params = new URLSearchParams();
-    params.set('learn', '1')
+    params.set('learn', '1');
     return this.http.get(this.cardsUrl, {search: params})
       .toPromise()
       .then(res => res.json().data as Card[])
