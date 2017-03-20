@@ -10,6 +10,7 @@ import { environment } from 'environments/environment';
 export class CardService {
   private cardsUrl = 'api/cards';
   private cardsUrlLearn = this.cardsUrl + '/learn';
+  private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) { }
 
@@ -35,8 +36,12 @@ export class CardService {
       .catch(this.handleError);
   }
 
-  update(cards: Card[]): Promise<any> {
-    return Promise.resolve();
+  update(card: Card): Promise<any> {
+    const url = `${this.cardsUrl}/${card.id}`;
+    return this.http.put(url, JSON.stringify(card), {headers: this.headers})
+      .toPromise()
+      .then(() => card)
+      .catch(this.handleError);
   }
 
   learn(updates: number[][]): Promise<any> {

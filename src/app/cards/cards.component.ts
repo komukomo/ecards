@@ -41,6 +41,7 @@ export class CardsComponent implements OnInit {
     isFront ?
       this.editingF[i] = false :
       this.editingB[i] = false;
+    this.cardService.update(this.cards[i]);
   }
 
   addCard(event: Event, fr: string, bk: string) {
