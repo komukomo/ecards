@@ -6,19 +6,21 @@ import sys
 from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 import datetime
+import json
 
 app = Flask(__name__, static_folder='dist')
-DB_PATH = '/tmp/test.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + DB_PATH
 db = SQLAlchemy(app)
-PORT = 8080
-if len(sys.argv) == 2:
-    PORT = sys.argv[1]
 
 NLEARN_DEFAULT = 10
 app_config = {
     'nlearn': NLEARN_DEFAULT
 }
+
+
+def read_config(env='dev'):
+    with open('serverconf.' + env + '.json') as f:
+        config = json.load(f)
+    return config
 
 
 @app.route('/api/cards', methods=['GET'])
@@ -127,6 +129,7 @@ def update_card_by_id(cid, data, update_date=False):
 
     return card
 
+
 def update_learndate(card):
     now = datetime.datetime.now()
     addtime = datetime.timedelta(hours=10)
@@ -156,6 +159,11 @@ def init_db():
 
 
 if __name__ == '__main__':
-    if not os.path.exists(DB_PATH):
+    env = sys.argv[1] if len(sys.argv) > 1 else 'dev'
+    config = read_config(env)
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + config['dbpath']
+    if not os.path.exists(config['dbpath']):
         init_db()
-    app.run(port=PORT)
+
+    app.run(port=config['port'], host=config['host'])
