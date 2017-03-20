@@ -16,7 +16,7 @@ if len(sys.argv) == 2:
     PORT = sys.argv[1]
 
 NLEARN_DEFAULT = 10
-config = {
+app_config = {
     'nlearn': NLEARN_DEFAULT
 }
 
@@ -25,7 +25,7 @@ config = {
 def get_cards():
     learn = request.args.get('learn', False)
     if learn:
-        cards = get_cards_for_learning(config['nlearn'])
+        cards = get_cards_for_learning(app_config['nlearn'])
     else:
         cards = get_cards_all()
     jcards = list(map(lambda x: x.to_json(), cards))
