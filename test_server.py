@@ -27,12 +27,12 @@ class FlaskrTestCase(unittest.TestCase):
     def test_get_cards(self):
         res = get_cards(self.app)
         assert('data' in res)
-        assert(len(res['data']) > server.config['nlearn'])
+        assert(len(res['data']) > server.app_config['nlearn'])
 
     def test_get_cards_learn(self):
         res = get_cards_learn(self.app)
         assert('data' in res)
-        assert(len(res['data']) == server.config['nlearn'])
+        assert(len(res['data']) == server.app_config['nlearn'])
 
     def test_add_card(self):
         res = add_card(self.app, 'f1', 'b1')
