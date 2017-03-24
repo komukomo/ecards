@@ -98,7 +98,7 @@ class Card(db.Model):
             'front': self.front,
             'back': self.back,
             'level': self.level,
-            'learntime': self.learntime,
+            'learntime': self.learntime.timestamp(),
         }
 
 
