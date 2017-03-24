@@ -29,6 +29,7 @@
       </div>
     </div>
     <div class="panel-body">
+      <app-play [msg]="card.back"></app-play>
       <div class="editable" [ngClass]="{edit: editStyle(i, false)}">
         <p (click)="editCard(i, false);">{{card.back}}</p>
         <input [(ngModel)]="card.back" (blur)="finEdit(i, false);">

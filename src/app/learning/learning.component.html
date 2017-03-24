@@ -9,6 +9,7 @@
     </div>
     <div class="panel-body" (click)="reveal(index);">
       <p class="card-mask" [class.active]="!visible[index]">[CLICK]</p>
+      <app-play class="card-back" [class.active]="visible[index]" [msg]="cards[index].back"></app-play>
       <p class="card-back" [class.active]="visible[index]">{{cards[index].back}}</p>
     </div>
   </div>
