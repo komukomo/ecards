@@ -70,6 +70,8 @@ def update_levels():
 
 
 @app.route('/', methods=['GET'])
+@app.route('/cards', methods=['GET'])
+@app.route('/learning', methods=['GET'])
 def index():
     return app.send_static_file('index.html')
 
