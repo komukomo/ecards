@@ -134,7 +134,7 @@ def update_card_by_id(cid, data, update_date=False):
 
 def update_learndate(card):
     now = datetime.datetime.now()
-    addtime = datetime.timedelta(hours=15 * pow(card.level, 1.5))
+    addtime = datetime.timedelta(minutes=3, hours=15 * pow(card.level, 1.5))
     card.learntime = now + addtime
 
 
