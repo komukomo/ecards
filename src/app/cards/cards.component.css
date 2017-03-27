@@ -7,3 +7,9 @@
   display: none;
 }
 
+.card-content {
+  display: inline-block;
+}
+.play-btn {
+  display: inline-block;
+}

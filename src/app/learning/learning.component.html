@@ -2,14 +2,14 @@
 
   <div *ngIf="cards && cards.length" class="panel panel-default">
     <div class="panel-heading">
-      <app-play [msg]="cards[index].front"></app-play>
+      <app-play [msg]="cards[index].front" class="pull-right"></app-play>
       ID:{{cards[index].id}}
       Level:{{cards[index].level}}
       <h4>{{cards[index].front}}</h4>
     </div>
     <div class="panel-body" (click)="reveal(index);">
       <p class="card-mask" [class.active]="!visible[index]">[CLICK]</p>
-      <app-play class="card-back" [class.active]="visible[index]" [msg]="cards[index].back"></app-play>
+      <app-play class="card-back pull-right" [class.active]="visible[index]" [msg]="cards[index].back"></app-play>
       <p class="card-back" [class.active]="visible[index]">{{cards[index].back}}</p>
     </div>
   </div>

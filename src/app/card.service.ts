@@ -36,6 +36,14 @@ export class CardService {
       .catch(this.handleError);
   }
 
+  deleteCard(id: number): Promise<Card> {
+    const url = `${this.cardsUrl}/${id}`;
+    return this.http.delete(url)
+      .toPromise()
+      .then()
+      .catch(this.handleError);
+  }
+
   update(card: Card): Promise<any> {
     const url = `${this.cardsUrl}/${card.id}`;
     return this.http.put(url, JSON.stringify(card), {headers: this.headers})

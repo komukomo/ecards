@@ -22,15 +22,16 @@
   </div>
   <div *ngFor="let card of cards; let i = index" class="panel panel-default">
     <div class="panel-heading">
-      <app-play [msg]="card.front"></app-play>
-      <div class="editable" [ngClass]="{edit: editStyle(i)}">
+      <div (click)="deleteCard(card.id, card.front)" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></div>
+      <app-play [msg]="card.front" class="play-btn"></app-play>
+      <div class="card-content editable" [ngClass]="{edit: editStyle(i)}">
         <p (click)="editCard(i);">{{card.front}}</p>
         <input [(ngModel)]="card.front" (blur)="finEdit(i);">
       </div>
     </div>
     <div class="panel-body">
-      <app-play [msg]="card.back"></app-play>
-      <div class="editable" [ngClass]="{edit: editStyle(i, false)}">
+      <app-play [msg]="card.back" class="play-btn"></app-play>
+      <div class="card-content editable" [ngClass]="{edit: editStyle(i, false)}">
         <p (click)="editCard(i, false);">{{card.back}}</p>
         <input [(ngModel)]="card.back" (blur)="finEdit(i, false);">
       </div>
