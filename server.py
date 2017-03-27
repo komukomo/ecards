@@ -37,7 +37,9 @@ def get_cards():
 @app.route('/api/cards/<card_id>', methods=['GET'])
 def get_card(card_id):
     card = get_card_by_id(card_id)
-    return jsonify({'data': card.to_json()})
+    if card:
+        return jsonify({'data': card.to_json()})
+    return api_error()
 
 
 @app.route('/api/cards', methods=['POST'])
@@ -47,6 +49,16 @@ def add_cards():
     db.session.add(card)
     db.session.commit()
     return jsonify(card.to_json())
+
+
+@app.route('/api/cards/<card_id>', methods=['DELETE'])
+def delete_card(card_id):
+    status = delete_card_by_id(card_id)
+    if status > 0:
+        db.session.commit()
+        # TODO what should the API return ?
+        return jsonify({'message': 'delete card'}), 200
+    return api_error()
 
 
 @app.route('/api/cards/<card_id>', methods=['PUT'])
@@ -60,7 +72,6 @@ def update_card(card_id):
 @app.route('/api/cards/learn', methods=['PUT'])
 def update_levels():
     data = request.json
-    print(data)
     for d in data:
         card_id = d[0]
         data = {'level': d[1]}
@@ -117,6 +128,10 @@ def get_cards_for_learning(num):
     return Card.query.filter(Card.learntime < now).limit(num)
 
 
+def delete_card_by_id(cid):
+    return Card.query.filter_by(id=cid).delete()
+
+
 def update_card_by_id(cid, data, update_date=False):
     card = get_card_by_id(cid)
     if 'front' in data and data['front'] != card.front:
@@ -159,6 +174,8 @@ def init_db():
 
     db.session.commit()
 
+def api_error():
+    return jsonify({'message': 'no such card'}), 404
 
 if __name__ == '__main__':
     env = sys.argv[1] if len(sys.argv) > 1 else 'dev'

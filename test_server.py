@@ -41,6 +41,12 @@ class FlaskrTestCase(unittest.TestCase):
         assert('f1' in res['front'])
         assert('b1' in res['back'])
 
+    def test_delete_card(self):
+        res = add_card(self.app, 'f2', 'b2')
+        assert('id' in res)
+        delete_card(self.app, res['id'])
+        assert_card_status(self.app, res['id'], 404)
+
     def test_update_card(self):
         cid = 1
         res = get_card(self.app, cid)
@@ -80,6 +86,16 @@ def get_cards(client):
 
 def get_card(client, cid):
     rv = client.get(API_URL + '/' + str(cid))
+    return json.loads(rv.data.decode('utf-8'))
+
+
+def assert_card_status(client, cid, status_code):
+    rv = client.get(API_URL + '/' + str(cid))
+    assert(rv.status_code == status_code)
+
+
+def delete_card(client, cid):
+    rv = client.delete(API_URL + '/' + str(cid))
     return json.loads(rv.data.decode('utf-8'))
 
 
