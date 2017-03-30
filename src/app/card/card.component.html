@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="clearfix">
+      <div class="pull-left">ID:{{card.id}} Level:{{card.level}} {{card.learntime}}</div>
+      <div (click)="deleteCard(card.id, card.front)" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></div>
+    </div>
+    <app-play [msg]="card.front" class="play-btn"></app-play>
+    <div class="card-content editable" [ngClass]="{edit: isEditing('f')}">
+      <h4 class="edit-target" (click)="edit('f', true);">{{card.front}}</h4>
+      <input class="editor" [(ngModel)]="card.front" (blur)="edit('f', false);">
+    </div>
+    <p>{{card.frontSup}}</p>
+  </div>
+  <div class="panel-body">
+    <app-play [msg]="card.back" class="play-btn"></app-play>
+    <div class="card-content editable" [ngClass]="{edit: isEditing('b')}">
+      <p class="edit-target" (click)="edit('b', true);">{{card.back}}</p>
+      <input class="editor" [(ngModel)]="card.back" (blur)="edit('b', false);">
+    </div>
+    <p>{{card.backSup}}</p>
+  </div>
+</div>

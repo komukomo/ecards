@@ -17,13 +17,15 @@ import { WindowService } from './window.service';
 import { PlayComponent } from './play/play.component';
 
 import { environment } from 'environments/environment';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CardsComponent,
     LearningComponent,
-    PlayComponent
+    PlayComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,

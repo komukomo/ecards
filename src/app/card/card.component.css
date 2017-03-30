@@ -1,0 +1,15 @@
+.editable .edit-target,
+.editable.edit .editor {
+  display: block;
+}
+.editable.edit .edit-target,
+.editable .editor {
+  display: none;
+}
+
+.card-content {
+  display: inline-block;
+}
+.play-btn {
+  display: inline-block;
+}
