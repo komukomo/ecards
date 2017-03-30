@@ -3,4 +3,5 @@ export class Card {
   front: string;
   back: string;
   level: number;
+  learntime: Date;
 }
