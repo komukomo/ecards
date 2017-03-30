@@ -102,7 +102,7 @@ class Card(db.Model):
     def __init__(self, front, back):
         self.front = front
         self.back = back
-        self.learntime = datetime.datetime.min
+        self.learntime = datetime.datetime.now()
         self.level = 0
 
     def to_json(self):
