@@ -1,9 +1,9 @@
-.editable p,
-.editable.edit input {
+.editable .edit-target,
+.editable.edit .editor {
   display: block;
 }
-.editable.edit p,
-.editable input {
+.editable.edit .edit-target,
+.editable .editor {
   display: none;
 }
 
