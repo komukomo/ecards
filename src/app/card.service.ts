@@ -16,10 +16,12 @@ export class CardService {
 
   getCards(toLearn: boolean = false, page: number = 0): Promise<Card[]> {
     const params = new URLSearchParams();
-    if (toLearn && environment.production) {
-      params.set('learn', '1');
+    if (environment.production) {
+      params.set('p', String(page));
+      if (toLearn) {
+        params.set('learn', '1');
+      }
     }
-    params.set('p', String(page));
     return this.http.get(this.cardsUrl, {search: params})
       .toPromise()
       .then(res => res.json().data as Card[])
