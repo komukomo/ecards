@@ -10,6 +10,7 @@ import { CardService } from '../card.service';
 })
 export class CardsComponent implements OnInit {
   cards: Card[];
+  page = 1;
   editingF: boolean[];
   editingB: boolean[];
 
@@ -20,6 +21,18 @@ export class CardsComponent implements OnInit {
       this.cards = cards;
       this.editingF = Array(this.cards.length).fill(false);
       this.editingB = Array(this.cards.length).fill(false);
+    });
+  }
+
+  nextPage() {
+    this.cardService.getCards(false, this.page).then((cards) => {
+      if (cards.length === 0) {
+        return;
+      }
+      this.page++;
+      this.cards = this.cards.concat(cards);
+      this.editingF = this.editingF.concat(Array(this.cards.length).fill(false));
+      this.editingB = this.editingB.concat(Array(this.cards.length).fill(false));
     });
   }
 
