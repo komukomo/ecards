@@ -21,6 +21,7 @@ export class CardsComponent implements OnInit {
       this.cards = cards;
       this.editingF = Array(this.cards.length).fill(false);
       this.editingB = Array(this.cards.length).fill(false);
+      this.page = 0;
     });
   }
 
