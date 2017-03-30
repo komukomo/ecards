@@ -31,6 +31,7 @@
         <h4 class="edit-target" (click)="editCard(i);">{{card.front}}</h4>
         <input class="editor" [(ngModel)]="card.front" (blur)="finEdit(i);">
       </div>
+      <p>{{card.frontSup}}</p>
     </div>
     <div class="panel-body">
       <app-play [msg]="card.back" class="play-btn"></app-play>
@@ -38,6 +39,7 @@
         <p class="edit-target" (click)="editCard(i, false);">{{card.back}}</p>
         <input class="editor" [(ngModel)]="card.back" (blur)="finEdit(i, false);">
       </div>
+      <p>{{card.backSup}}</p>
     </div>
   </div>
   <button (click)="nextPage()" class="btn btn-default center-block">next</button>

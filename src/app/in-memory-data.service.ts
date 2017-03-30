@@ -12,7 +12,9 @@ export class InMemoryDataService implements InMemoryDbService {
       cards.push({
         id: i,
         front: `front${i}`,
+        frontSup: `supplementary information of the front${i} message`,
         back: `back${i}`,
+        backSup: `supplementary information of the back{i} message`,
         level: i,
         learntime: new Date(),
       });
