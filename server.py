@@ -12,8 +12,10 @@ app = Flask(__name__, static_folder='dist')
 db = SQLAlchemy(app)
 
 NLEARN_DEFAULT = 10
+PPAGE_DEFAULT = 10
 app_config = {
-    'nlearn': NLEARN_DEFAULT
+    'nlearn': NLEARN_DEFAULT,
+    'ppage': PPAGE_DEFAULT,
 }
 
 
@@ -29,7 +31,8 @@ def get_cards():
     if learn:
         cards = get_cards_for_learning(app_config['nlearn'])
     else:
-        cards = get_cards_all()
+        page = request.args.get('p', 0)
+        cards = get_cards_all(num=app_config['ppage'], page=int(page))
     jcards = list(map(lambda x: x.to_json(), cards))
     return jsonify({'data': jcards})
 
@@ -119,8 +122,9 @@ def get_card_by_id(cid):
     return Card.query.filter_by(id=cid).first()
 
 
-def get_cards_all():
-    return Card.query.all()
+def get_cards_all(num=10, page=0):
+    print(num * page)
+    return Card.query.limit(num).offset(num * page)
 
 
 def get_cards_for_learning(num):
@@ -174,8 +178,10 @@ def init_db():
 
     db.session.commit()
 
+
 def api_error():
     return jsonify({'message': 'no such card'}), 404
+
 
 if __name__ == '__main__':
     env = sys.argv[1] if len(sys.argv) > 1 else 'dev'

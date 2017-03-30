@@ -27,7 +27,7 @@ class FlaskrTestCase(unittest.TestCase):
     def test_get_cards(self):
         res = get_cards(self.app)
         assert('data' in res)
-        assert(len(res['data']) > server.app_config['nlearn'])
+        assert(len(res['data']) == server.app_config['ppage'])
 
     def test_get_cards_learn(self):
         res = get_cards_learn(self.app)
