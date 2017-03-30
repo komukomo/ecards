@@ -11,6 +11,7 @@ import json
 app = Flask(__name__, static_folder='dist')
 db = SQLAlchemy(app)
 
+DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 NLEARN_DEFAULT = 10
 PPAGE_DEFAULT = 10
 app_config = {
@@ -114,7 +115,7 @@ class Card(db.Model):
             'front': self.front,
             'back': self.back,
             'level': self.level,
-            'learntime': self.learntime.timestamp(),
+            'learntime': self.learntime.strftime(DATE_FORMAT),
         }
 
 
