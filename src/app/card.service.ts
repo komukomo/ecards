@@ -39,11 +39,11 @@ export class CardService {
       .catch(this.handleError);
   }
 
-  deleteCard(id: number): Promise<Card> {
-    const url = `${this.cardsUrl}/${id}`;
-    return this.http.delete(url)
+  deleteCard(card: Card): Promise<Card> {
+    const url = `${this.cardsUrl}/${card.id}`;
+    return this.http.delete(url, {headers: this.headers})
       .toPromise()
-      .then()
+      .then(() => card)
       .catch(this.handleError);
   }
 

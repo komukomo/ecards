@@ -2,7 +2,7 @@
   <div class="panel-heading">
     <div class="clearfix">
       <div class="pull-left">ID:{{card.id}} Level:{{card.level}} {{card.learntime}}</div>
-      <div (click)="deleteCard(card.id, card.front)" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></div>
+      <div (click)="discard()" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></div>
     </div>
     <app-play [msg]="card.front" class="play-btn"></app-play>
     <div class="card-content editable" [ngClass]="{edit: isEditing('f')}">

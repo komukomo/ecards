@@ -42,14 +42,8 @@ export class CardsComponent implements OnInit {
     });
   }
 
-  deleteCard(id: number, fr: string) {
-    if (!confirm(`Delete this card ? "${fr}"`)) {
-      return;
-    }
-    this.cardService.deleteCard(id).then(() => {
-      this.getCards();
-    });
+  discard() {
+    this.getCards();
   }
-
 }
 
