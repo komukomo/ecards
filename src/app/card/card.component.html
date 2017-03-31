@@ -9,7 +9,10 @@
       <h4 class="edit-target" (click)="edit('f', true);">{{card.front}}</h4>
       <input class="editor" [(ngModel)]="card.front" (blur)="edit('f', false);">
     </div>
-    <p>{{card.frontSup}}</p>
+    <div class="editable" [ngClass]="{edit: isEditing('fs')}">
+      <p class="edit-target" (click)="edit('fs', true);">{{card.frontSup}}</p>
+      <textarea class="editor" [(ngModel)]="card.frontSup" (blur)="edit('fs', false);"></textarea>
+    </div>
   </div>
   <div class="panel-body">
     <app-play [msg]="card.back" class="play-btn"></app-play>
@@ -17,6 +20,9 @@
       <p class="edit-target" (click)="edit('b', true);">{{card.back}}</p>
       <input class="editor" [(ngModel)]="card.back" (blur)="edit('b', false);">
     </div>
-    <p>{{card.backSup}}</p>
+    <div class="editable" [ngClass]="{edit: isEditing('bs')}">
+      <p class="edit-target" (click)="edit('bs', true);">{{card.backSup}}</p>
+      <textarea class="editor" [(ngModel)]="card.backSup" (blur)="edit('bs', false);"></textarea>
+    </div>
   </div>
 </div>
