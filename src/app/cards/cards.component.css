@@ -1,0 +1,13 @@
+input {
+  display: block;
+  width: 100%;
+}
+
+.sup {
+  width: 100%;
+  border: solid 1px #ccc;
+}
+.sup.inactive {
+  height: 0px;
+  padding: 0px;
+}

@@ -32,8 +32,8 @@ export class CardService {
     return this.getCards(true);
   }
 
-  addCard(front: string, back: string): Promise<Card> {
-    return this.http.post(this.cardsUrl, {front, back})
+  addCard(front: string, back: string, frontSup: string, backSup: string): Promise<Card> {
+    return this.http.post(this.cardsUrl, {front, back, frontSup, backSup})
       .toPromise()
       .then(res => res.json().data as Card)
       .catch(this.handleError);

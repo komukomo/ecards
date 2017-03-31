@@ -1,25 +1,20 @@
 <div class="container">
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <form class="form-horizontal"
-            (ngSubmit)="addCard($event, cfront.value, cback.value);
-            cfront.value=''; cback.value='';">
-        <div class="form-group">
-          <label class="col-sm-1">front</label>
-          <div class="col-sm-11">
-            <input class="form-control" #cfront >
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-1">back</label>
-          <div class="col-sm-11">
-            <input class="form-control" #cback >
-          </div>
-        </div>
-        <button class="btn btn-primary" type="submit">Add</button>
-      </form>
+  <form class="form"
+          (ngSubmit)="addCard($event, cfront.value, cback.value, cfrontsup.value, cbacksup.value);
+          cfront.value=''; cback.value=''; cfrontsup.value=''; cbacksup.value='';">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <input #cfront >
+        <textarea class="sup" #cfrontsup ></textarea>
+      </div>
+      <div class="panel-body">
+        <input #cback >
+        <textarea class="sup" #cbacksup ></textarea>
+      </div>
     </div>
-  </div>
+    <button class="center-block btn btn-primary" type="submit">Add</button>
+  </form>
+  <hr>
   <div *ngFor="let card of cards; let i = index">
     <app-card [card]="card" (discard)="discard()"></app-card>
   </div>
