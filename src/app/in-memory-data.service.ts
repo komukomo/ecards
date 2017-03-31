@@ -8,13 +8,13 @@ export class InMemoryDataService implements InMemoryDbService {
 
   createDb() {
     const cards: Card[] = [];
-    for (let i = 0; i < 20; i++) {
+    for (let i = 1; i <= 20; i++) {
       cards.push({
         id: i,
         front: `front${i}`,
         frontSup: `supplementary information of the front${i} message`,
         back: `back${i}`,
-        backSup: `supplementary information of the back{i} message`,
+        backSup: `supplementary information of the back${i} message`,
         level: i,
         learntime: new Date(),
       });
