@@ -10,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170410075931) do
+ActiveRecord::Schema.define(version: 20170410101006) do
 
   create_table "cards", force: :cascade do |t|
-    t.string   "front"
-    t.string   "back"
-    t.integer  "level"
-    t.datetime "learntime"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "front",                  null: false
+    t.string   "back",                   null: false
+    t.integer  "level",      default: 0, null: false
+    t.datetime "learntime",              null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.text     "front_sup"
     t.text     "back_sup"
+    t.index ["learntime"], name: "index_cards_on_learntime"
   end
 
 end
