@@ -4,11 +4,9 @@ import { Headers, Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Card } from './card';
 
-import { environment } from 'environments/environment';
-
 @Injectable()
 export class CardService {
-  private cardsUrl = 'api/cards';
+  private cardsUrl = 'http://localhost:3000/api/cards'; //TODO: external file
   private cardsUrlLearn = this.cardsUrl + '/learn';
   private headers = new Headers({'Content-Type': 'application/json'});
 
@@ -16,15 +14,13 @@ export class CardService {
 
   getCards(toLearn: boolean = false, page: number = 0): Promise<Card[]> {
     const params = new URLSearchParams();
-    if (environment.production) {
-      params.set('p', String(page));
-      if (toLearn) {
-        params.set('learn', '1');
-      }
+    params.set('p', String(page));
+    if (toLearn) {
+      params.set('learn', '1');
     }
     return this.http.get(this.cardsUrl, {search: params})
       .toPromise()
-      .then(res => res.json().data as Card[])
+      .then(res => res.json() as Card[])
       .catch(this.handleError);
   }
 
@@ -35,7 +31,7 @@ export class CardService {
   addCard(front: string, back: string, frontSup: string, backSup: string): Promise<Card> {
     return this.http.post(this.cardsUrl, {front, back, frontSup, backSup})
       .toPromise()
-      .then(res => res.json().data as Card)
+      .then(res => res.json() as Card)
       .catch(this.handleError);
   }
 
@@ -56,12 +52,9 @@ export class CardService {
   }
 
   learn(updates: number[][]): Promise<any> {
-    if (!environment.production) {
-      return Promise.resolve();
-    }
-    return this.http.put(this.cardsUrlLearn, updates)
+    return this.http.patch(this.cardsUrlLearn, updates)
       .toPromise()
-      .then(res => res.json().data)
+      .then(res => res.json())
       .catch(this.handleError);
   }
 
