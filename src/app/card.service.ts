@@ -28,8 +28,8 @@ export class CardService {
     return this.getCards(true);
   }
 
-  addCard(front: string, back: string, frontSup: string, backSup: string): Promise<Card> {
-    return this.http.post(this.cardsUrl, {front, back, frontSup, backSup})
+  addCard(card: Card): Promise<Card> {
+    return this.http.post(this.cardsUrl, {card: card})
       .toPromise()
       .then(res => res.json() as Card)
       .catch(this.handleError);

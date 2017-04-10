@@ -37,7 +37,13 @@ export class CardsComponent implements OnInit {
 
   addCard(event: Event, fr: string, bk: string, frs: string, bks: string) {
     event.preventDefault();
-    this.cardService.addCard(fr, bk, frs, bks).then(() => {
+    const c = new Card({
+      front: fr,
+      front_sup: frs,
+      back: bk,
+      back_sup: bks
+    });
+    this.cardService.addCard(c).then(() => {
       this.getCards();
     });
   }

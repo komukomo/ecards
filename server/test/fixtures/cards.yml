@@ -3,13 +3,17 @@
 one:
   id: 1
   front: should-be-learned
+  front_sup: should-be-learned
   back: MyString
+  back_sup: MyString
   level: 1
   learntime: <%= 1.days.ago %>
 
 two:
   id: 2
   front: has-been-learned
+  front_sup: has-been-learned
   back: MyString
+  back_sup: MyString
   level: 1
   learntime: <%= 1.days.since %>
