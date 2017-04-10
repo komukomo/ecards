@@ -3,7 +3,11 @@ class CardsController < ApplicationController
 
   # GET /cards
   def index
-    @cards = Card.all
+    if params[:learn] == '1'
+      @cards = Card.where("learntime < datetime()")
+    else
+      @cards = Card.all
+    end
 
     render json: @cards
   end

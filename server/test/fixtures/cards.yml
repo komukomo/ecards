@@ -1,13 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  front: MyString
+  id: 1
+  front: should-be-learned
   back: MyString
   level: 1
-  learntime: 2017-04-10 06:36:00
+  learntime: <%= 1.days.ago %>
 
 two:
-  front: MyString
+  id: 2
+  front: has-been-learned
   back: MyString
   level: 1
-  learntime: 2017-04-10 06:36:00
+  learntime: <%= 1.days.since %>

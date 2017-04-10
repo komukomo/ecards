@@ -8,6 +8,8 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get cards_url, as: :json
     assert_response :success
+    assert_match 'should-be-learned', response.body
+    assert_match 'has-been-learned', response.body
   end
 
   test "should create card" do
@@ -34,5 +36,11 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response 204
+  end
+
+  test "should learn cards" do
+    get cards_url, params: {learn: 1}
+    assert_match 'should-be-learned', response.body
+    assert_no_match 'has-been-learned', response.body
   end
 end
