@@ -42,6 +42,14 @@ class CardsController < ApplicationController
     @card.destroy
   end
 
+  # PATCH /cards/learn
+  def learn
+    params[:_json].each do |d|
+      card = Card.find(d[0])
+      card.update_attribute(:level, d[1])
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_card

@@ -3,6 +3,7 @@ require 'test_helper'
 class CardsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @card = cards(:one)
+    @card2 = cards(:two)
   end
 
   test "should get index" do
@@ -42,5 +43,17 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
     get cards_url, params: {learn: 1}
     assert_match 'should-be-learned', response.body
     assert_no_match 'has-been-learned', response.body
+  end
+
+  test "should update levels" do
+    get card_url(@card)
+    assert_not_equal 10, JSON.parse(response.body)['level']
+    get card_url(@card2)
+    assert_not_equal 20, JSON.parse(response.body)['level']
+    patch cards_learn_url, params: [[1, 10], [2, 20]], as: :json
+    get card_url(@card)
+    assert_equal 10, JSON.parse(response.body)['level']
+    get card_url(@card2)
+    assert_equal 20, JSON.parse(response.body)['level']
   end
 end
