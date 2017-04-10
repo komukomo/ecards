@@ -4,6 +4,7 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @card = cards(:one)
     @card2 = cards(:two)
+    @card3 = cards(:three)
   end
 
   test "should get index" do
@@ -65,14 +66,22 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update levels" do
+    get cards_url, params: {learn: 1}
+    assert_match @card.front, response.body
+    assert_match @card3.front, response.body
     get card_url(@card)
     assert_not_equal 10, JSON.parse(response.body)['level']
-    get card_url(@card2)
+    get card_url(@card3)
     assert_not_equal 20, JSON.parse(response.body)['level']
-    patch cards_learn_url, params: [[1, 10], [2, 20]], as: :json
+
+    patch cards_learn_url, params: [[1, 10], [3, 20]], as: :json
+
     get card_url(@card)
     assert_equal 10, JSON.parse(response.body)['level']
-    get card_url(@card2)
+    get card_url(@card3)
     assert_equal 20, JSON.parse(response.body)['level']
+    get cards_url, params: {learn: 1}
+    assert_no_match @card.front, response.body
+    assert_no_match @card3.front, response.body
   end
 end

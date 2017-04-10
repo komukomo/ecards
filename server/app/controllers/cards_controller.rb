@@ -46,7 +46,7 @@ class CardsController < ApplicationController
   def learn
     params[:_json].each do |d|
       card = Card.find(d[0])
-      card.update_attribute(:level, d[1])
+      card.learn(d[1])
     end
   end
 
