@@ -61,6 +61,7 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
     get cards_url, params: {learn: 1}
     assert_match 'should-be-learned', response.body
     assert_no_match 'has-been-learned', response.body
+    assert_match 'should-be-learned-first', JSON.parse(response.body).first.to_s
   end
 
   test "should update levels" do

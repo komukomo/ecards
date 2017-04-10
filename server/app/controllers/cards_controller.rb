@@ -4,7 +4,7 @@ class CardsController < ApplicationController
   # GET /cards
   def index
     if params[:learn] == '1'
-      @cards = Card.where("learntime < datetime()")
+      @cards = Card.where("learntime < datetime()").order(:learntime)
     else
       @cards = Card.all
     end

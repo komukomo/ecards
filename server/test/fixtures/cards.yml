@@ -17,3 +17,12 @@ two:
   back_sup: MyString
   level: 1
   learntime: <%= 1.days.since %>
+
+three:
+  id: 3
+  front: should-be-learned-first
+  front_sup: fs3
+  back: b3
+  back_sup: bs3
+  level: 1
+  learntime: <%= 10.days.ago %>
