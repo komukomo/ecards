@@ -1,6 +1,0 @@
-web:
-  build: .
-  ports:
-    - "4200:8080"
-  volumes:
-    - /var/ecards:/var/ecards
