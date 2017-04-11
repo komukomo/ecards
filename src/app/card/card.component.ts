@@ -13,26 +13,13 @@ export class CardComponent implements OnInit {
   @Output('discard')
   discardEvent = new EventEmitter<number>();
 
-  editing = {
-    f: false,
-    b: false,
-    fs: false,
-    bs: false,
-  };
   constructor(private cardService: CardService){ }
 
   ngOnInit() {
   }
 
-  edit(key: string, val: boolean) {
-    this.editing[key] = val;
-    if (!val) {
-      this.cardService.update(this.card);
-    }
-  }
-
-  isEditing(key: string) {
-    return this.editing[key];
+  update() {
+    this.cardService.update(this.card);
   }
 
   discard() {
