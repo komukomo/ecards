@@ -4,9 +4,12 @@ import { Headers, Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Card } from './card';
 
+import { environment } from 'environments/environment';
+
 @Injectable()
 export class CardService {
-  private cardsUrl = 'http://localhost:3000/api/cards'; //TODO: external file
+  private cardsUrl = environment.production ? 'api/cards' :
+      'http://localhost:3000/api/cards';
   private cardsUrlLearn = this.cardsUrl + '/learn';
   private headers = new Headers({'Content-Type': 'application/json'});
 
