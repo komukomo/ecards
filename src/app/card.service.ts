@@ -8,23 +8,22 @@ import { environment } from 'environments/environment';
 
 @Injectable()
 export class CardService {
-  private cardsUrl = 'api/cards';
+  private cardsUrl = environment.production ? 'api/cards' :
+      'http://localhost:3000/api/cards';
   private cardsUrlLearn = this.cardsUrl + '/learn';
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) { }
 
-  getCards(toLearn: boolean = false, page: number = 0): Promise<Card[]> {
+  getCards(toLearn: boolean = false, page: number = 1): Promise<Card[]> {
     const params = new URLSearchParams();
-    if (environment.production) {
-      params.set('p', String(page));
-      if (toLearn) {
-        params.set('learn', '1');
-      }
+    params.set('p', String(page));
+    if (toLearn) {
+      params.set('learn', '1');
     }
     return this.http.get(this.cardsUrl, {search: params})
       .toPromise()
-      .then(res => res.json().data as Card[])
+      .then(res => res.json() as Card[])
       .catch(this.handleError);
   }
 
@@ -32,10 +31,10 @@ export class CardService {
     return this.getCards(true);
   }
 
-  addCard(front: string, back: string, frontSup: string, backSup: string): Promise<Card> {
-    return this.http.post(this.cardsUrl, {front, back, frontSup, backSup})
+  addCard(card: Card): Promise<Card> {
+    return this.http.post(this.cardsUrl, {card: card})
       .toPromise()
-      .then(res => res.json().data as Card)
+      .then(res => res.json() as Card)
       .catch(this.handleError);
   }
 
@@ -56,12 +55,9 @@ export class CardService {
   }
 
   learn(updates: number[][]): Promise<any> {
-    if (!environment.production) {
-      return Promise.resolve();
-    }
-    return this.http.put(this.cardsUrlLearn, updates)
+    return this.http.patch(this.cardsUrlLearn, updates)
       .toPromise()
-      .then(res => res.json().data)
+      .then(res => res.json())
       .catch(this.handleError);
   }
 

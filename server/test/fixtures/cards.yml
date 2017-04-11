@@ -1,0 +1,39 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  front: should-be-learned
+  front_sup: should-be-learned
+  back: MyString
+  back_sup: MyString
+  level: 1
+  learntime: <%= 1.days.ago %>
+
+two:
+  id: 2
+  front: has-been-learned
+  front_sup: has-been-learned
+  back: MyString
+  back_sup: MyString
+  level: 1
+  learntime: <%= 1.days.since %>
+
+three:
+  id: 3
+  front: should-be-learned-first
+  front_sup: fs3
+  back: b3
+  back_sup: bs3
+  level: 1
+  learntime: <%= 10.days.ago %>
+
+<% (4..101).each do |i| %>
+card<%= i %>:
+  id: <%= i %>
+  front: f<%= i %>
+  front_sup: fs<%= i %>
+  back: b<%= i %>
+  back_sup: bs<%= i %>
+  level: <%= i %>
+  learntime: <%= 1.hours.ago %>
+<% end %>

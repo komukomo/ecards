@@ -10,8 +10,8 @@
       <input class="editor" [(ngModel)]="card.front" (blur)="edit('f', false);">
     </div>
     <div class="editable" [ngClass]="{edit: isEditing('fs')}">
-      <p class="edit-target" (click)="edit('fs', true);">{{card.frontSup}}</p>
-      <textarea class="editor" [(ngModel)]="card.frontSup" (blur)="edit('fs', false);"></textarea>
+      <p class="edit-target" (click)="edit('fs', true);">{{card.front_sup}}</p>
+      <textarea class="editor" [(ngModel)]="card.front_sup" (blur)="edit('fs', false);"></textarea>
     </div>
   </div>
   <div class="panel-body">
@@ -21,8 +21,8 @@
       <input class="editor" [(ngModel)]="card.back" (blur)="edit('b', false);">
     </div>
     <div class="editable" [ngClass]="{edit: isEditing('bs')}">
-      <p class="edit-target" (click)="edit('bs', true);">{{card.backSup}}</p>
-      <textarea class="editor" [(ngModel)]="card.backSup" (blur)="edit('bs', false);"></textarea>
+      <p class="edit-target" (click)="edit('bs', true);">{{card.back_sup}}</p>
+      <textarea class="editor" [(ngModel)]="card.back_sup" (blur)="edit('bs', false);"></textarea>
     </div>
   </div>
 </div>

@@ -5,9 +5,6 @@ import { HttpModule } from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './in-memory-data.service';
-
 import { AppComponent } from './app.component';
 import { CardsComponent } from './cards/cards.component';
 import { LearningComponent } from './learning/learning.component';
@@ -31,8 +28,6 @@ import { CardComponent } from './card/card.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    environment.production ? [] :
-      InMemoryWebApiModule.forRoot(InMemoryDataService),
     AppRoutingModule,
   ],
   providers: [
