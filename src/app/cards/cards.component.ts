@@ -10,14 +10,14 @@ import { CardService } from '../card.service';
 })
 export class CardsComponent implements OnInit {
   cards: Card[];
-  page = 1;
+  page: number;
 
   constructor(private cardService: CardService) { }
 
   getCards() {
     this.cardService.getCards().then((cards) => {
       this.cards = cards;
-      this.page = 0;
+      this.page = 2;
     });
   }
 

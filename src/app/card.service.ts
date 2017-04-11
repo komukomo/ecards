@@ -15,7 +15,7 @@ export class CardService {
 
   constructor(private http: Http) { }
 
-  getCards(toLearn: boolean = false, page: number = 0): Promise<Card[]> {
+  getCards(toLearn: boolean = false, page: number = 1): Promise<Card[]> {
     const params = new URLSearchParams();
     params.set('p', String(page));
     if (toLearn) {

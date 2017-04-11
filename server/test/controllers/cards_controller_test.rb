@@ -14,6 +14,19 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
     assert_match 'has-been-learned', response.body
   end
 
+  test "pagination on the 'cards' page" do
+    get cards_url, as: :json
+    cards = Card.paginate(page:1)
+    cards.each do |c|
+      assert_match c.front, response.body
+    end
+    get cards_url, params: {p: 2}
+    cards = Card.paginate(page:2)
+    cards.each do |c|
+      assert_match c.front, response.body
+    end
+  end
+
   test "should create card" do
     assert_difference('Card.count') do
       post cards_url, params: {

@@ -6,7 +6,7 @@ class CardsController < ApplicationController
     if params[:learn] == '1'
       @cards = Card.where("learntime < datetime()").order(:learntime)
     else
-      @cards = Card.all
+      @cards = Card.paginate(page: params[:p])
     end
 
     render json: @cards

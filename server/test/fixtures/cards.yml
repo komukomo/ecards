@@ -26,3 +26,14 @@ three:
   back_sup: bs3
   level: 1
   learntime: <%= 10.days.ago %>
+
+<% (4..101).each do |i| %>
+card<%= i %>:
+  id: <%= i %>
+  front: f<%= i %>
+  front_sup: fs<%= i %>
+  back: b<%= i %>
+  back_sup: bs<%= i %>
+  level: <%= i %>
+  learntime: <%= 1.hours.ago %>
+<% end %>
