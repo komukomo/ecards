@@ -76,6 +76,7 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
     assert_match 'should-be-learned', response.body
     assert_no_match 'has-been-learned', response.body
     assert_match 'should-be-learned-first', JSON.parse(response.body).first.to_s
+    assert_equal 10, JSON.parse(response.body).length # TODO external file
   end
 
   test "should update levels" do
