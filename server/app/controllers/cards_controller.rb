@@ -4,7 +4,8 @@ class CardsController < ApplicationController
   # GET /cards
   def index
     if params[:learn] == '1'
-      @cards = Card.where("learntime < datetime()").order(:learntime)
+      ncards = params[:limit] || 10 # TODO external file
+      @cards = Card.where("learntime < datetime()").order(:learntime).limit(ncards.to_i)
     else
       @cards = Card.paginate(page: params[:p])
     end
