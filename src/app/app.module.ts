@@ -15,6 +15,7 @@ import { PlayComponent } from './play/play.component';
 
 import { environment } from 'environments/environment';
 import { CardComponent } from './card/card.component';
+import { UploaderComponent } from './uploader/uploader.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CardComponent } from './card/card.component';
     CardsComponent,
     LearningComponent,
     PlayComponent,
-    CardComponent
+    CardComponent,
+    UploaderComponent
   ],
   imports: [
     BrowserModule,
