@@ -7,7 +7,7 @@ class CardsController < ApplicationController
       ncards = params[:limit] || 10 # TODO external file
       @cards = Card.where("learntime < datetime()").order(:learntime).limit(ncards.to_i)
     else
-      @cards = Card.paginate(page: params[:p])
+      @cards = Card.order('created_at DESC').paginate(page: params[:p])
     end
 
     render json: @cards
