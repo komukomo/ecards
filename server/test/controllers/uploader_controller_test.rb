@@ -7,7 +7,7 @@ class UploaderControllerTest < ActionDispatch::IntegrationTest
     Card.all.each(&:destroy)
 
     file = fixture_file_upload('test/fixtures/4cards.tsv', 'text/plain')
-    post upload_url, params: {file: file}
+    post cards_upload_url, params: {file: file}
     get cards_url
     assert_equal 4, response.body.scan("ok").size
   end
