@@ -5,7 +5,7 @@ class CardsController < ApplicationController
   def index
     if params[:learn] == '1'
       ncards = params[:limit] || 10 # TODO external file
-      @cards = Card.where("learntime < datetime()").order(:learntime).limit(ncards.to_i)
+      @cards = Card.where("learntime < datetime()").order('updated_at, learntime').limit(ncards.to_i)
     else
       @cards = Card.order('created_at DESC').paginate(page: params[:p])
     end
